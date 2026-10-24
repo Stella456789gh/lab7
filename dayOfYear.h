@@ -1,12 +1,13 @@
 #pragma once
 #include <iostream>
 #include <cstdlib>
+
 // 2. dayOfYear.h : 클래스1 정의
 namespace KwonMinSung2693018
 {
 //[lab7] 
 //달별로 날의 수를 정수형 배열로 정의
-    const int daysInMonth[13]{0,31,28,31,30,31,30,31,31,30,31,30,31};
+const int daysInMonth[13]{0,31,28,31,30,31,30,31,31,30,31,30,31};
 
 class dayOfYear
 {
@@ -34,6 +35,9 @@ private:
             std::exit(1);
         }
     }
+// update 함수 정의
+// while 구문을 이용해서 day가 최대일수를 넘어갈때 를 처리
+// 최대일수를 다시 정의해서 마무리
     void updateDay()
     {
         int maxDay{daysInMonth[month]};
@@ -133,7 +137,7 @@ public:
 // -전위증가연산자, 후위증가연산자를 this를 이용하게 변경
 // -복합할당연산자 += 정의 (this 이용)
 
-    dayOfYear& operator ++()
+    dayOfYear& operator++()
     {
         ++day;
         updateDay();
@@ -142,14 +146,20 @@ public:
     }
       
 
-    dayOfYear operator ++(int)
+    dayOfYear operator++(int)
     {
-        dayOfYear temp {*this} //{month,day};
+        dayOfYear temp {*this}; //{month,day};
         ++day;
         updateDay(); // ++(*this);
         return temp;
     }
 
+    dayOfYear& operator+=(int p)
+    {
+        day += p; 
+        updateDay();
+        return *this;
+    }
 
 
  //프렌드함수로서 이항연산자 ==
@@ -162,7 +172,6 @@ public:
     {
         return dayOfYear{d1.month + d2.month, d1.day + d2.day};
     }
-
 
 };
 
